@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="assets/css/mob.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/desk.css" rel="stylesheet" type="text/css" />
+    <!-- <script type="text/javascript" src="assets/js/formHandler.js"></script> -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+        $('.submit-desk').on('click', async function (e) {
+            e.preventDefault();
+            var mobileNumber = $('.input-desk').val();
+            try {
+                const response = await $.ajax({
+                    url: 'https://hamvakil.com/api/send/bistcrm',
+                    method: 'POST',
+                    data: {
+                        mobile: mobileNumber,
+                        sandbox: "true"
+                    }
+                });
+                console.log('Form submitted successfully:', response);
+            } catch (error) {
+                console.error('Error submitting form:', error);
+            }
+            });
+        });
+    </script>
+
+    <title>مشاوره تلفنی با هم وکیل</title>
+</head>
+
+<body>
+    <form class="input-box" method="post">
+        <input type="text" placeholder="0912****380" class="input-desk" name="mobile" required="required"
+            maxlength="11">
+        <button type="submit" class="submit-desk">ثبت درخواست مشاوره</button>
+    </form>
+</body>
+</html>
