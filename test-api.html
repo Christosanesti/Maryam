@@ -6,10 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="assets/css/mob.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/desk.css" rel="stylesheet" type="text/css" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <!-- <script type="text/javascript" src="assets/js/formHandler.js"></script> -->
-    
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelector('.submit-desk').addEventListener('click', function (e) {
+                e.preventDefault();
+                var mobileNumber = document.querySelector('.input-desk').value;
+                fetch('https://hamvakil.com/api/send/bistcrm', {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json'
+                    },
+                body: JSON.stringify({
+                    mobile: mobileNumber,
+                    sandbox: "true"
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Form submitted successfully:', data);
+                })
+                .catch((error) => {
+                console.error('Error submitting form:', error);
+            });
+            });
+        });
+    </script>
 
     <title>مشاوره تلفنی با هم وکیل</title>
 </head>
@@ -20,27 +42,5 @@
             maxlength="11">
         <button type="submit" class="submit-desk">ثبت درخواست مشاوره</button>
     </form>
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-        $('.submit-desk').on('click', async function (e) {
-            e.preventDefault();
-            var mobileNumber = $('.input-desk').val();
-            try {
-                const response = await $.ajax({
-                    url: 'https://hamvakil.com/api/send/bistcrm',
-                    method: 'POST',
-                    data: {
-                        mobile: mobileNumber,
-                        sandbox: "true"
-                    }
-                });
-                console.log('Form submitted successfully:', response);
-            } catch (error) {
-                console.error('Error submitting form:', error);
-            }
-            });
-        });
-    </script>
 </body>
 </html>
